@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My AI-Readiness Scorer</title>
+</head>
+<body>
+  <h1>Knowledge Article Scorer</h1>
+
+  <label>Article Title</label><br>
+  <input type="text" id="title"><br><br>
+
+  <label>Article Content</label><br>
+  <textarea id="content" rows="8" cols="50"></textarea><br><br>
+
+  <button onclick="scoreArticle()">Score it</button>
+
+  <div id="results"></div>
+
+</body>
+
+<script>
+function scoreArticle(){
+  const content = document.getElementById('content').value;
+
+  // Rule: does it have bullet points or numbered steps?
+  const hasBullets = content.includes('- ') || content.includes('* ');
+  const structureScore = hasBullets ? 90 : 30;
+
+  const sentences = content.split('.').filter(s => s.trim().length > 3);
+  const words = content.split(' ').filter(w => w.length > 0);
+  const avgWordsPerSentence = words.length / sentences.length;
+  const clarityScore = avgWordsPerSentence < 20 ? 90 : 40;
+
+  document.getElementById('results').innerHTML =
+    'Structure score: ' + structureScore + '/100';
+
+  document.getElementById('results').innerHTML =
+    'Structure: ' + structureScore + '/100<br>Clarity: ' + clarityScore + '/100';
+
+}
+</script>
+
+</html>
